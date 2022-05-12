@@ -1,4 +1,4 @@
-# Dockerfile and resources to create a jupyterhub docker container with preferences.
+- Dockerfile and resources to create a jupyterhub docker container with preferences.
 
 run below:
 ```

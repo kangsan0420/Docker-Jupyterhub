@@ -22,9 +22,8 @@ RUN jupyter labextension install @jupyterlab/toc @jupyter-widgets/jupyterlab-man
 RUN echo "SKEL=/etc/skel" >> /etc/default/useradd
 COPY .jupyter /etc/skel/.jupyter
 RUN echo "cd ${notebook_dir}" >> /etc/skel/.bashrc
-RUN groupadd mnc
+RUN groupadd $hub_group
 RUN useradd -rm -G sudo,$hub_group $admin_id -s /bin/bash -p $(perl -e 'print crypt($ARGV[0], "password")' $admin_pw) -u $dir_uid
-RUN chmod 777 /tmp
 WORKDIR /jupyterhub
 
 ENTRYPOINT jupyterhub --port=80 --ip=0.0.0.0 --Spawner.default_url="/lab" --Spawner.notebook_dir=$notebook_dir --LocalAuthenticator.create_system_users=true --Authenticator.admin_users $admin_id --Spawner.environment TZ=$TZ --LocalAuthenticator.allowed_groups=$hub_group
