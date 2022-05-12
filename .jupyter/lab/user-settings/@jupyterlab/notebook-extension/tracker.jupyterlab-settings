@@ -1,0 +1,32 @@
+{
+    "codeCellConfig": {
+        "autoClosingBrackets": true,
+        "lineNumbers": true,
+        "lineWrap": "on",
+        "matchBrackets": true,
+        "insertSpaces": true,
+        "tabSize": 4,
+        "codeFolding": true,
+    },
+    "experimentalDisableDocumentWideUndoRedo": true,
+    "markdownCellConfig": {
+        "autoClosingBrackets": true,
+        "lineNumbers": true,
+        "lineWrap": "on",
+        "matchBrackets": true,
+        "insertSpaces": true,
+        "tabSize": 4,
+        "codeFolding": true,
+    },
+    "rawCellConfig": {
+        "autoClosingBrackets": true,
+        "lineNumbers": true,
+        "lineWrap": "on",
+        "matchBrackets": true,
+        "insertSpaces": true,
+        "tabSize": 4,
+        "codeFolding": true,
+    },
+    "recordTiming": true,
+
+}

@@ -1,0 +1,28 @@
+{
+    "toolbar": [
+        {
+            "name": "duplicate-cell",
+            "disabled": true,
+        },
+        {
+            "name": "move-cell-up",
+            "disabled": true,
+        },
+        {
+            "name": "move-cell-down",
+            "disabled": true,
+        },
+        {
+            "name": "insert-cell-above",
+            "disabled": true,
+        },
+        {
+            "name": "insert-cell-below",
+            "disabled": true,
+        },
+        {
+            "name": "delete-cell",
+            "disabled": true,
+        }
+    ]
+}
