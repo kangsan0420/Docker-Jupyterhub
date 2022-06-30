@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  jupyterhub:
+    image: mnc_jupyter:v1.0
+    environment:
+      TZ: Asia/Seoul
+      notebook_dir: /VOLUME
+    ports:
+      - 9020:8000
+    volumes:
+      - /DATA:/VOLUME
+      - ./user-setting.yaml:/vol_hub_setting/user-setting.yaml
+    shm_size: 32G
+    ulimits:
+        core:
+            hard: 0
+            soft: 0
+    
+  mariadb:
+    image: mariadb:10
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MARIADB_ROOT_PASSWORD: 1234
+      TZ: Asia/Seoul
+    volumes:
+      - /DATA/mariadb/data:/var/lib/mysql
+      - /DATA/mariadb/sock:/run/mysqld
+    profiles:
+      - with-db
+
+# docker-compose up (without mariadb)
+# docker-compose --profile with-db up (with mariadb)

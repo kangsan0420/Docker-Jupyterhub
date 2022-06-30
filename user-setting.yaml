@@ -1,0 +1,12 @@
+kslee:
+  sudo: true
+  group: mnc
+  uid: 1003
+
+jckim:
+  sudo: false
+  group: mnc
+
+guest:
+  pw: guest
+  group: guest
