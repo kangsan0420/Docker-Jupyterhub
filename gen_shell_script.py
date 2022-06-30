@@ -8,12 +8,15 @@ def user_group_command(config):
 
     for user, dic in config.items():
         options = ('-rm -s /bin/bash') +\
-                  (' -G %s' % dic['group'] if 'group' in dic else '') +\
+                  (' -g %s' % dic['group'] if 'group' in dic else '') +\
                   (' -G sudo' if dic.get('sudo', False) else '') +\
                   (' -u %s' % dic['uid'] if 'uid' in dic else '')
 
         if key := {'pw', 'passwd', 'password'} & dic.keys():
-            options += f" -p $(perl -e 'print crypt($ARGV[0], \"password\")' {dic[key.pop()]})"
+            passwd = dic[key.pop()]
+        else:
+            passwd = user
+        options += f" -p $(perl -e 'print crypt($ARGV[0], \"password\")' {passwd})"
 
         script.append('useradd %s %s' % (options, user))
 
@@ -26,6 +29,7 @@ def jupyterhub_command(config):
 
     script = [
         'jupyterhub',
+        '--ip=0.0.0.0',
         '--log-level="WARN"',
         '--log-file=/var/log/jupyterhub/stdout.log',
         '--pid-file=/var/log/jupyterhub/processes.pid',
@@ -35,7 +39,7 @@ def jupyterhub_command(config):
     ]
     script += [f'--Authenticator.admin_users="{admin_users}"'] if len(admin_users) else []
     script += [f'--LocalAuthenticator.allowed_users="{allowed_users}"'] if len(allowed_users) else []
-    script = ' \\ \\n  '.join(script)
+    script = ' '.join(script)
     return script
 
 parser = argparse.ArgumentParser(description='Generate shell command from yaml file.')

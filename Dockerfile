@@ -16,6 +16,7 @@ WORKDIR /jupyterhub
 
 RUN echo 'cd $notebook_dir' >> /etc/skel/.bashrc
 RUN echo "HISTTIMEFORMAT=\"%Y%m%d %H:%M:%S] \"" >> /etc/profile
+RUN mkdir /var/log/jupyterhub
 
-# RUN ["chmod", "+x", "/jupyterhub/run.sh"]
-# ENTRYPOINT ["/jupyterhub/run.sh"]
+RUN chmod +x /jupyterhub/run.sh
+ENTRYPOINT /jupyterhub/run.sh
