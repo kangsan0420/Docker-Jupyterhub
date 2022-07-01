@@ -1,12 +1,12 @@
-kslee:
+admin:
   sudo: true
   group: mnc
   uid: 1003
 
-jckim:
+user:
   sudo: false
   group: mnc
 
 guest:
-  pw: guest
+  pw: 1234
   group: guest

@@ -2,12 +2,11 @@ version: "3.8"
 
 services:
   jupyterhub:
-    image: mnc_jupyter:v1.1
+    image: mnc_jupyter:latest
     environment:
-      TZ: Asia/Seoul
       notebook_dir: /VOLUME
     ports:
-      - 9021:8000
+      - 9010:8000
     volumes:
       - /DATA:/VOLUME
       - ./user-setting.yaml:/vol_hub_setting/user-setting.yaml
@@ -21,8 +20,8 @@ services:
     image: mariadb:10
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     environment:
-      MARIADB_ROOT_PASSWORD: 1234
       TZ: Asia/Seoul
+      MARIADB_ROOT_PASSWORD: 1234
     volumes:
       - /DATA/mariadb/data:/var/lib/mysql
       - /DATA/mariadb/sock:/run/mysqld
