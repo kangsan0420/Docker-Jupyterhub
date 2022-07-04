@@ -5,11 +5,12 @@ services:
     image: mnc_jupyter:latest
     environment:
       notebook_dir: /VOLUME
+      umask: 0o002
     ports:
       - 9010:8000
     volumes:
       - /DATA:/VOLUME
-      - ./user-setting.yaml:/vol_hub_setting/user-setting.yaml
+      - ./:/vol_hub_setting/
     shm_size: 32G
     ulimits:
         core:

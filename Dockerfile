@@ -17,7 +17,7 @@ RUN echo "cd $notebook_dir" >> /etc/skel/.bashrc
 RUN echo "HISTTIMEFORMAT=\"%Y%m%d %H:%M:%S] \"" >> /etc/profile
 
 COPY .jupyter /etc/skel/.jupyter
-COPY ./src/gen_shell_script.py ./src/run.sh /jupyterhub/src/
+COPY ./src /jupyterhub/src/
 
 WORKDIR /jupyterhub
 RUN mkdir /var/log/jupyterhub
