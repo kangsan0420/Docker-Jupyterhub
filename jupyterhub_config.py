@@ -6,7 +6,6 @@ os.umask(int(str(os.environ.get('umask') or '0o022'), 8))
 import yaml
 user_config = yaml.safe_load(open('/vol_hub_setting/user-setting.yaml'))
 
-c.JupyterHub.log_level = 'WARN'
 c.JupyterHub.bind_url = 'http://0.0.0.0:8000'
 c.JupyterHub.pid_file = '/var/log/jupyterhub/jupyterhub.pid'
 c.Spawner.default_url = '/lab'

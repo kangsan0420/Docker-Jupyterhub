@@ -19,4 +19,3 @@ if [ -z ${HUB_OFF+x} ]; then
 else 
     sleep infinity
 fi
-

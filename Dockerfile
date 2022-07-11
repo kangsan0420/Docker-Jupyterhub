@@ -13,7 +13,7 @@ RUN pip install jupyter jupyterlab jupyterhub jupyterlab_execute_time \
 RUN jupyter labextension install @jupyterlab/toc @jupyter-widgets/jupyterlab-manager
 
 RUN echo "SKEL=/etc/skel" >> /etc/default/useradd
-RUN echo "cd $notebook_dir" >> /etc/skel/.bashrc
+RUN echo "cd \$notebook_dir" >> /etc/skel/.bashrc
 RUN echo "HISTTIMEFORMAT=\"%Y%m%d %H:%M:%S] \"" >> /etc/profile
 
 COPY .jupyter /etc/skel/.jupyter
@@ -24,4 +24,3 @@ RUN mkdir /var/log/jupyterhub
 RUN chmod +x /jupyterhub/src/run.sh
 
 ENTRYPOINT /jupyterhub/src/run.sh
-
