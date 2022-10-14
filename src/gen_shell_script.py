@@ -1,6 +1,12 @@
 import sys, yaml
 import argparse
 
+def addIf(flag, value, format='{}'):
+    if value is None:
+        return ''
+    else:
+        return f" {flag} {format.format(value)}"
+
 def user_group_command(config):
     lines = []
 

@@ -45,14 +45,15 @@ users:
 ```bash
 docker run -d --ulimit core=0 \
     --shm-size=32G \
-    -v $(pwd):/vol_hub_setting \ # to handle "user-setting.yaml" on runtime
-    -v <host_volume_path>:/VOLUME \ # workspace directory
-    -p <jupyterhub_port>:8000 \
-    --name <container_name> \
+    -v $(pwd):/vol_hub_setting \ # to pass "user-setting.yaml" on runtime
+    -v $host_volume_path:/workspace \ # hub root directory
+    -p $jupyterhub_port:8000 \
+    --name $container_name \
     mnc_jupyter:latest
 ```
 - Set the default umask on JupyterHub: `-e umask=0o002`
-- For debug mode (turn off JupyterHub): `-e HUB_OFF=true`
+- For Single-user (JupyterLab): `-e MODE=JupyterLab`
+- For debug mode (turn off entrypoint): `-e Mode= `
 
 ### 4-2. with docker-compose
 ```bash

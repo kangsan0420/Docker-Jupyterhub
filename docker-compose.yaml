@@ -4,12 +4,11 @@ services:
   jupyterhub:
     image: mnc_jupyter:latest
     environment:
-      notebook_dir: /VOLUME
-      umask: 0o002
+      notebook_dir: /workspace
     ports:
       - 9010:8000
     volumes:
-      - /DATA:/VOLUME
+      - /DATA:/workspace
       - ./:/vol_hub_setting/
     shm_size: 32G
     ulimits:

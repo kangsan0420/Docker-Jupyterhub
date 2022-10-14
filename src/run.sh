@@ -14,8 +14,11 @@ else
 fi
 
 # run jupyterhub if $HUB_OFF is not set
-if [ -z ${HUB_OFF+x} ]; then
+if [ "$MODE" == "JupyterHub" ]; then
     jupyterhub -f /jupyterhub/jupyterhub_config.py >> /var/log/jupyterhub/stdout.log
-else 
+elif [ "$MODE" == "JupyterLab"]; then
+    jupyterlab --ip '*' --port 8000 --allow-root --no-browser --ServerApp.token='' --ServerApp.notebook_dir="$notebook_dir"
+else
+    echo "MODE is not JupyterHub or JupyterLab. sleep infinity..."
     sleep infinity
 fi
