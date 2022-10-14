@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   jupyterhub:
-    image: mnc_jupyter:latest
+    image: mnc/jupyterhub:latest
     environment:
       notebook_dir: /workspace
     ports:

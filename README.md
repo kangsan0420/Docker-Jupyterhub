@@ -8,7 +8,7 @@ cd mnc-docker-jupyterhub
 
 ## 2. Build the Dockerfile first:
 ```bash
-docker build -t mnc_jupyter:latest .
+docker build -t mnc/jupyterhub:latest .
 ```
 
 ## 3. Set config with user-setting.yaml
@@ -41,7 +41,7 @@ users:
 ```
 
 ## 4. Run
-### 4-1. with docker run
+### 4-1. Using docker run
 ```bash
 docker run -d --ulimit core=0 \
     --shm-size=32G \
@@ -49,13 +49,13 @@ docker run -d --ulimit core=0 \
     -v $host_volume_path:/workspace \ # hub root directory
     -p $jupyterhub_port:8000 \
     --name $container_name \
-    mnc_jupyter:latest
+    mnc/jupyterhub:latest
 ```
 - Set the default umask on JupyterHub: `-e umask=0o002`
 - For Single-user (JupyterLab): `-e MODE=JupyterLab`
 - For debug mode (turn off entrypoint): `-e Mode= `
 
-### 4-2. with docker-compose
+### 4-2. Using docker-compose
 ```bash
 docker-compose up -d
 docker-compose up -d --profile with-db # run a mariadb container.
