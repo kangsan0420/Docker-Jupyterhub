@@ -13,20 +13,30 @@ docker build -t mnc_jupyter:latest .
 
 ## 3. Set config with user-setting.yaml
 valid keys:  
-- sudo: true or false(optional, default: false)  
-- group: any valid group name (optional, default: username)  
-- uid: any valid uid (optional, default: set by OS, must be unique)  
-- passwd: any valid password (optional, default: username)  
+- groups:  
+  - name: required  
+  - gid: optional (default: set by OS)  
+
+- users:  
+  - name: required
+  - sudo: true or false (optional, default: false)  
+  - group: any valid group name (optional, default: username)  
+  - uid: any valid uid (optional, default: set by OS, must be unique)  
+  - passwd: any valid password (optional, default: username)  
 
 ```yaml
 # example
-kslee:
+groups:
+  - name: mnc
+  - gid: 1004
+
+users:
+  - name: kslee
     sudo: true
     group: mnc
-    uid: 1003 # for compatibility with host uid
+    uid: 1003 # match w host uid for permission
 
-lena:
-    sudo: false
+  - name: guest
     passwd: 1234
 ```
 

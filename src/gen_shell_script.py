@@ -2,27 +2,23 @@ import sys, yaml
 import argparse
 
 def user_group_command(config):
-    script = []
-    for group in set(dic['group'] for dic in config.values()):
-        script.append("groupadd %s" % group)
+    lines = []
 
-    for user, dic in config.items():
-        options = ('-rm -s /bin/bash') +\
-                  (' -g %s' % dic['group'] if 'group' in dic else '') +\
-                  (' -G sudo' if dic.get('sudo', False) else '') +\
-                  (' -u %s' % dic['uid'] if 'uid' in dic else '')
+    for grp in config['groups']:
+        line = f"groupadd {grp['name']}" + addIf('--gid', grp.get('gid'))
+        lines.append(line)
 
-        if key := {'pw', 'passwd', 'password'} & dic.keys():
-            passwd = dic[key.pop()]
-        else:
-            passwd = user
-        options += f" -p $(perl -e 'print crypt($ARGV[0], \"password\")' {passwd})"
+    for usr in config['users']:
+        line = f"useradd {usr['name']} -rm -s /bin/bash" \
+               + addIf('-g', usr.get('group')) \
+               + addIf('-G', 'sudo' if usr.get('sudo') else None) \
+               + addIf('-u', usr.get('uid')) \
+               + addIf('-p', usr.get('passwd', usr['name']), format='''$(perl -e 'print crypt($ARGV[0], "password")' {})''')
 
-        script.append('useradd %s %s' % (options, user))
+        lines.append(line)
 
-    script = '\n'.join(script)
-    return script
-  
+    return '\n'.join(lines)
+ 
 parser = argparse.ArgumentParser(description='Generate shell command from yaml file.')
 parser.add_argument('-f', '--fname', type=str, required=True, help='Path to yaml file')
 args = parser.parse_args()

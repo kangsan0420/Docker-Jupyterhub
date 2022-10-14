@@ -1,12 +1,27 @@
-admin:
-  sudo: true
-  group: mnc
-  uid: 1003
+# groups:
+#  - name: required
+#    gid: optional (default set by system)
+#
+# users:
+#   - name: required
+#     uid: optional (default set by system)
+#     sudo: optional (default false)
+#     group: optional (default ${name})
+#     passwd: optional (default ${name})
 
-user:
-  sudo: false
-  group: mnc
+groups:
+  - name: mnc
+    gid: 1004
 
-guest:
-  pw: 1234
-  group: guest
+users:
+  - name: admin
+    sudo: true
+    group: mnc
+    uid: 1003
+
+  - name: user
+    sudo: false
+    group: mnc
+
+  - name: guest
+    passwd: 1234
