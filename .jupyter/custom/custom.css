@@ -1,0 +1,33 @@
+.container { width:95% !important; }
+  
+div.CodeMirror,
+
+div.CodeMirror pre { /*코드 블록*/
+  font-family: Consolas;
+}
+
+.input_prompt { /*In [n]: */
+  font-family: Consolas;
+}
+
+.text_cell_render { /*마크다운*/
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+.output_result pre { /*출력결과-맨마지막 출력*/
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+.output_stdout pre { /*출력결과-긴출력, 중간출력*/
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+.output_area { /*표*/
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+.CodeMirror-dialog, .CodeMirror-dialog .CodeMirror-search-field, .terminal-app .terminal {
+  font-family: Consolas;
+}
+~                                                                                                                                                                                                                                                                    
+~                                       

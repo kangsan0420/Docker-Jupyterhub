@@ -1,0 +1,17 @@
+{
+  "load_extensions": {
+    "nbextensions_configurator/config_menu/main": true,
+    "contrib_nbextensions_help_item/main": true,
+    "highlight_selected_word/main": true,
+    "execute_time/ExecuteTime": true,
+    "export_embedded/main": true,
+    "scroll_down/main": true,
+    "toc2/main": true,
+    "table_beautifier/main": true
+  },
+  "Cell": {
+    "cm_config": {
+      "lineNumbers": true
+    }
+  }
+}
