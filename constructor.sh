@@ -1,3 +1,14 @@
+
+function pip_install_if_not_exists() {
+	local PKG=$1
+
+    if pip list | grep $PKG &>/dev/null; then
+        echo "\"$PKG\" already installed."
+    else
+        pip install $PKG
+    fi
+}
+
 echo -e "\n\
     \r============================= \n\
     \r== Jupyter IDE Constructor == \n\
@@ -7,13 +18,18 @@ echo "Select Jupyter-:"
 echo "[1] Lab"
 echo "[2] Hub"
 read -rp "Enter your choice [1]: " TYPE
-[ "$TYPE" == "lab" ] && pip install jupyterlab || pip install jupyterhub
 
 case $TYPE in
     1) TYPE="lab" ;;
     2) TYPE="hub" ;;
     *) TYPE="lab" ;;
 esac
+
+if [ "$TYPE" == "lab" ]; then
+    pip_install_if_not_exists "jupyterlab"
+else
+    pip_install_if_not_exists "jupyterhub"
+fi
 
 # read -rp "IP of Jupyter $TYPE ['*']: " ip
 ip=${ip:-"'0.0.0.0'"}
@@ -37,13 +53,13 @@ then
     echo "HISTTIMEFORMAT=\"%Y%m%d %H:%M:%S] \"" >> /etc/profile
 fi
     
-read -rp 'Install "jupyterlab_execute_time"? ([y]/n): ' EX1
+read -rp 'Install "jupyterlab-execute-time"? ([y]/n): ' EX1
 read -rp 'Install "jupyterlab-system-monitor"? ([y]/n): ' EX2
 read -rp 'Install "jupyterlab-lsp"? ([y]/n): ' EX3
 
-if [[ ${EX1:-y} =~ ^[Yy]$ ]]; then pip install jupyterlab_execute_time; fi
-if [[ ${EX2:-y} =~ ^[Yy]$ ]]; then pip install jupyterlab-system-monitor; fi
-if [[ ${EX3:-y} =~ ^[Yy]$ ]]; then pip install jupyterlab-lsp; fi
+if [[ ${EX1:-y} =~ ^[Yy]$ ]]; then pip_install_if_not_exists "jupyterlab-execute-time"; fi
+if [[ ${EX2:-y} =~ ^[Yy]$ ]]; then pip_install_if_not_exists "jupyterlab-system-monitor"; fi
+if [[ ${EX3:-y} =~ ^[Yy]$ ]]; then pip_install_if_not_exists "jupyterlab-lsp"; fi
 
 if [ "$TYPE" == "lab" ]; then
     read -rp 'Set password for jupyter lab"? (y/[n]): ' JL1
@@ -106,7 +122,12 @@ if [ "$TYPE" == "lab" ]; then
     CMD+="-lab"
     CMD+=" --allow-root --no-browser --ip='*' --port-retries=0"
     CMD+=" --ServerApp.quit_button=false --ServerApp.allow_password_change=false"
-    CMD+=" --port $PORT --notebook-dir=$ROOT_DIR --ServerApp.base_url=$BASE_URL --ServerApp.password=$PASSWD"
+    CMD+=" --port $PORT --notebook-dir=$ROOT_DIR --ServerApp.base_url=$BASE_URL"
+    if [ -n "$PASSWD" ]; then
+        CMD+=" --ServerApp.password=$PASSWD"
+    else
+        CMD+=" --ServerApp.token=''"
+    fi
     # CMD+=" --collaborative"
 else
     CMD+="hub"
